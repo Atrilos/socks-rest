@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+    <changeSet id="1" author="atrilos">
+        <createSequence sequenceName="socks_seq" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="2" author="atrilos">
+        <createTable tableName="socks">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" uniqueConstraintName="pk_socks"/>
+            </column>
+            <column name="color" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cotton_part" type="int">
+                <constraints nullable="false" checkConstraint="cotton_part >= 0"/>
+            </column>
+            <column name="quantity" type="bigint">
+                <constraints nullable="false" checkConstraint="quantity >= 0"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="atrilos">
+        <addUniqueConstraint tableName="socks" columnNames="color, cotton_part" constraintName="uq_color_cotton_part"/>
+    </changeSet>
+
+</databaseChangeLog>
